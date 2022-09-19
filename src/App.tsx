@@ -3,8 +3,7 @@ import Form from './Form.js';
 
 function App() {
   return (
-    <div className="">
-     <h1>Macro Calculator</h1>
+    <div className="justify-center flex my-auto">
      <Form/>
     </div>
   );
