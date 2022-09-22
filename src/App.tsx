@@ -1,5 +1,5 @@
 import './App.css';
-import Form from './Form.js';
+import Form from './Form';
 import Results from './Results';
 
 function App() {
