@@ -14,31 +14,19 @@ export default function Form() {
   const [fat, setFat] = useState(0);
   const [calories, setCalories] = useState(0);
 
-  const handleSubmit = () => {
-    if (gender === "Male") {
-      let maleBmr = Math.round(
-        66.47 + 6.24 * weight + 12.7 * (heightFt * 12 + heightIn) - 4.7 * age
-      );
-      setCalories(Math.round(maleBmr * activity));
-      if (goal === "maintain") {
-        setProtein(Math.round(calories * 0.4));
-        setCarb(Math.round(calories * 0.35));
-        setFat(Math.round(calories * 0.25));
-      } else if (goal === "lose") {
-        setProtein(Math.round(calories * 0.5));
-        setCarb(Math.round(calories * 0.35));
-        setFat(Math.round(calories * 0.15));
-      } else {
-        setProtein(Math.round(calories * 0.35));
-        setCarb(Math.round(calories * 0.45));
-        setFat(Math.round(calories * 0.2));
-      }
+  console.log(calories);
+  // console.log(carbs);
+  // console.log(protein);
+  // console.log(fat);
+  const handleSubmit = (): void => {
+    setCalories(weight * activity);
+    if (goal === "lose") {
+      setCalories(calories * 0.8);
+      setProtein(weight);
+      setFat(Math.round((calories * 0.3) / 9));
+      setCarb(Math.round((calories * 0.3) / 4));
     }
   };
-  console.log("protein", Math.round(calories * 0.4));
-  // console.log("carbs", carbs);
-  // console.log("fat", fat);
-  // console.log("calories", calories);
 
   return (
     <div>
@@ -128,7 +116,7 @@ export default function Form() {
           <input
             type="radio"
             name="activity"
-            value="1.2"
+            value="10"
             onChange={(e) => setActivity(Number(e.target.value))}
           />
           <label htmlFor="macros-activity1">
@@ -139,7 +127,7 @@ export default function Form() {
           <input
             type="radio"
             name="activity"
-            value="1.375"
+            value="12"
             onChange={(e) => setActivity(Number(e.target.value))}
           />
           <label htmlFor="macros-activity2">
@@ -150,7 +138,7 @@ export default function Form() {
           <input
             type="radio"
             name="activity"
-            value="1.55"
+            value="14"
             onChange={(e) => setActivity(Number(e.target.value))}
           />
           <label htmlFor="macros-activity3">
@@ -161,7 +149,7 @@ export default function Form() {
           <input
             type="radio"
             name="activity"
-            value="1.725"
+            value="16"
             onChange={(e) => setActivity(Number(e.target.value))}
           />
           <label htmlFor="macros-activity4">
@@ -172,7 +160,7 @@ export default function Form() {
           <input
             type="radio"
             name="activity"
-            value="1.9"
+            value="18"
             onChange={(e) => setActivity(Number(e.target.value))}
           />
           <label htmlFor="macros-activity5">
