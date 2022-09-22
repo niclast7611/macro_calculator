@@ -10,7 +10,7 @@ import FormLabel from "@mui/material/FormLabel";
 
 export default function Form() {
   return (
-    <div className="h-100 mt-[30vh]">
+    <div className="block">
       <Card
         sx={{
           width: "content",
