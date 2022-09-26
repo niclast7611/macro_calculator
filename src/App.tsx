@@ -1,12 +1,10 @@
 import "./App.css";
 import Form from "./Form";
-// import Results from "./Results";
 
 function App() {
   return (
-    <div className="justify-center flex flex-col my-auto">
+    <div className="flex flex-col justify-center my-auto">
       <Form />
-      {/* <Results/> */}
     </div>
   );
 }

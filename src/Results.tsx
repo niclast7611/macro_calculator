@@ -1,3 +1,5 @@
+// Interface created to describe the data types of the props coming in
+
 interface FormProps {
   carbs: number;
   protein: number;
