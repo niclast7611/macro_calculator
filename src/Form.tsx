@@ -1,11 +1,8 @@
 import { useState } from "react";
+import Results from "./Results";
 
 export default function Form() {
-  const [gender, setGender] = useState("");
-  const [age, setAge] = useState(0);
   const [weight, setWeight] = useState(0);
-  const [heightIn, setHeightIn] = useState(10);
-  const [heightFt, setHeightFt] = useState(5);
   const [activity, setActivity] = useState(0);
   const [goal, setGoal] = useState("");
 
@@ -14,17 +11,30 @@ export default function Form() {
   const [fat, setFat] = useState(0);
   const [calories, setCalories] = useState(0);
 
-  console.log(calories);
-  // console.log(carbs);
-  // console.log(protein);
-  // console.log(fat);
   const handleSubmit = (): void => {
-    setCalories(weight * activity);
     if (goal === "lose") {
-      setCalories(calories * 0.8);
+      setCalories(weight * activity * 0.8);
+    } else if (goal === "gain") {
+      setCalories(weight * activity * 0.2 + weight * activity);
+    } else {
+      setCalories(weight * activity);
+    }
+    setMacros(calories);
+  };
+
+  const setMacros = (calories: number): void => {
+    if (goal === "lose") {
       setProtein(weight);
-      setFat(Math.round((calories * 0.3) / 9));
-      setCarb(Math.round((calories * 0.3) / 4));
+      setCarb(Math.round(calories - (protein * 4 + fat * 9)) / 4);
+      setFat(Math.round(weight * 0.3));
+    } else if (goal === "gain") {
+      setProtein(Math.round((calories * 0.4) / 4));
+      setCarb(Math.round((calories * 0.25) / 4));
+      setFat(Math.round((calories * 0.35) / 9));
+    } else {
+      setProtein(Math.round((calories * 0.4) / 4));
+      setCarb(Math.round((calories * 0.4) / 4));
+      setFat(Math.round((calories * 0.2) / 9));
     }
   };
 
@@ -32,47 +42,6 @@ export default function Form() {
     <div>
       <h2>Macro Calculator</h2>
       <form>
-        <span>Age</span>
-        <div>
-          <input
-            type="text"
-            name="age"
-            placeholder="Years"
-            onChange={(e) => setAge(Number(e.target.value))}
-          />
-        </div>
-        <span>Gender</span>
-        <div>
-          <input
-            type="radio"
-            name="sex"
-            value="Male"
-            onChange={(e) => setGender(e.target.value)}
-          />
-          <label htmlFor="macros-male">Male</label>
-          <input
-            type="radio"
-            name="sex"
-            value="Female"
-            onChange={(e) => setGender(e.target.value)}
-          />
-          <label htmlFor="macros-female">Female</label>
-        </div>
-        <span>Height</span>
-        <div>
-          <input
-            type="text"
-            name="height-tens"
-            placeholder="Feet"
-            onChange={(e) => setHeightFt(Number(e.target.value))}
-          />
-          <input
-            type="text"
-            name="height-units"
-            placeholder="Inches"
-            onChange={(e) => setHeightIn(Number(e.target.value))}
-          />
-        </div>
         <span>Weight</span>
         <div>
           <input
@@ -172,6 +141,7 @@ export default function Form() {
           Calculate
         </button>
       </form>
+      <Results carbs={carbs} protein={protein} fat={fat} calories={calories} />
     </div>
   );
 }
