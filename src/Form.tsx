@@ -2,15 +2,18 @@ import { useState } from "react";
 import Results from "./Results";
 
 export default function Form() {
+  //State is hydrated through form UI
   const [weight, setWeight] = useState(0);
   const [activity, setActivity] = useState(0);
   const [goal, setGoal] = useState("");
 
+  // State is hydrated by the two functions below
   const [protein, setProtein] = useState(0);
-  const [carbs, setCarb] = useState(0);
+  const [carbs, setCarbs] = useState(0);
   const [fat, setFat] = useState(0);
   const [calories, setCalories] = useState(0);
 
+  // returns void because it is not actually returning anything
   const handleSubmit = (): void => {
     if (goal === "lose") {
       setCalories(weight * activity * 0.8);
@@ -25,15 +28,15 @@ export default function Form() {
   const setMacros = (calories: number): void => {
     if (goal === "lose") {
       setProtein(weight);
-      setCarb(Math.round(calories - (protein * 4 + fat * 9)) / 4);
+      setCarbs(Math.round(calories - (protein * 4 + fat * 9)) / 4);
       setFat(Math.round(weight * 0.3));
     } else if (goal === "gain") {
       setProtein(Math.round((calories * 0.4) / 4));
-      setCarb(Math.round((calories * 0.25) / 4));
+      setCarbs(Math.round((calories * 0.25) / 4));
       setFat(Math.round((calories * 0.35) / 9));
     } else {
       setProtein(Math.round((calories * 0.4) / 4));
-      setCarb(Math.round((calories * 0.4) / 4));
+      setCarbs(Math.round((calories * 0.4) / 4));
       setFat(Math.round((calories * 0.2) / 9));
     }
   };
@@ -141,6 +144,7 @@ export default function Form() {
           Calculate
         </button>
       </form>
+      {/* Passes the state as props */}
       <Results carbs={carbs} protein={protein} fat={fat} calories={calories} />
     </div>
   );
