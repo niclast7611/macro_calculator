@@ -1,12 +1,12 @@
-import './App.css';
-import Form from './Form.js';
-import Results from './Results';
+import "./App.css";
+import Form from "./Form";
+// import Results from "./Results";
 
 function App() {
   return (
     <div className="justify-center flex flex-col my-auto">
-     <Form/>
-     <Results/>
+      <Form />
+      {/* <Results/> */}
     </div>
   );
 }
