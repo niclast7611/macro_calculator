@@ -9,7 +9,7 @@ interface FormProps {
 
 export default function Results({ carbs, fat, protein, calories }: FormProps) {
   return (
-    <div className="flex w-screen text-center flex-roPw justify-evenly">
+    <div className="flex flex-row justify-around text-center">
       <div>
         <h3 className="text-lg border-b-2 border-black ">Protein</h3>
         <br />
