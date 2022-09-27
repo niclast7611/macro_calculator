@@ -22,125 +22,192 @@ export default function Form() {
     } else {
       setCalories(weight * activity);
     }
+
     setMacros(calories);
   };
 
   const setMacros = (calories: number): void => {
-    if (goal === "lose") {
-      setProtein(weight);
-      setCarbs(Math.round(calories - (protein * 4 + fat * 9)) / 4);
-      setFat(Math.round(weight * 0.3));
-    } else if (goal === "gain") {
-      setProtein(Math.round((calories * 0.4) / 4));
-      setCarbs(Math.round((calories * 0.25) / 4));
-      setFat(Math.round((calories * 0.35) / 9));
-    } else {
-      setProtein(Math.round((calories * 0.4) / 4));
-      setCarbs(Math.round((calories * 0.4) / 4));
-      setFat(Math.round((calories * 0.2) / 9));
+    if (calories) {
+      if (goal === "lose") {
+        setProtein(weight);
+        setCarbs(Math.round(calories - (protein * 4 + fat * 9)) / 4);
+        setFat(Math.round(weight * 0.3));
+      } else if (goal === "gain") {
+        setProtein(Math.round((calories * 0.4) / 4));
+        setCarbs(Math.round((calories * 0.25) / 4));
+        setFat(Math.round((calories * 0.35) / 9));
+      } else {
+        setProtein(Math.round((calories * 0.4) / 4));
+        setCarbs(Math.round((calories * 0.4) / 4));
+        setFat(Math.round((calories * 0.2) / 9));
+      }
     }
   };
 
   return (
-    <div>
-      <h2>Macro Calculator</h2>
-      <form>
-        <span>Weight</span>
-        <div>
+    <div className="max-w-3xl py-6 mx-auto sm:px-6 lg:px-8">
+      <form className="px-8 pt-6 pb-6 mb-2 bg-white rounded shadow-md">
+        <div className="col-span-6 sm:col-span-3">
+          <label htmlFor="weight" className="block font-medium text-gray-900">
+            Weight
+          </label>
           <input
-            type="text"
+            type="number"
             name="weight"
-            placeholder="Pounds"
+            id="weight"
+            autoComplete="given-name"
+            className="block w-1/3 my-1 border-gray-300 rounded-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             onChange={(e) => setWeight(Number(e.target.value))}
+            placeholder="Pounds"
           />
         </div>
-        <span>Goal</span>
-        <div>
-          <input
-            type="radio"
-            name="goal"
-            value="maintain"
-            onChange={(e) => setGoal(e.target.value)}
-          />
-          <label htmlFor="macros-goal2">Maintain Current Weight</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="goal"
-            value="lose"
-            onChange={(e) => setGoal(e.target.value)}
-          />
-          <label htmlFor="macros-goal1">Lose Weight</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="goal"
-            value="gain"
-            onChange={(e) => setGoal(e.target.value)}
-          />
-          <label htmlFor="macros-goal3">Gain Weight</label>
-        </div>
-        <span>Activity Level</span>
+        <fieldset>
+          <legend className="text-base font-medium text-gray-900 contents">
+            Goal
+          </legend>
+          <div className="mt-4 space-y-4">
+            <div className="flex items-center">
+              <input
+                id="maintenance"
+                name="goal-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                value="maintain"
+                onChange={(e) => setGoal(e.target.value)}
+              />
+              <label
+                htmlFor="maintenance"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Maintain Current Weight
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="gain"
+                name="goal-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                value="lose"
+                onChange={(e) => setGoal(e.target.value)}
+              />
+              <label
+                htmlFor="gain"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Gain Weight
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="lose"
+                name="goal-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+              />
+              <label
+                htmlFor="lose"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Lose Weight
+              </label>
+            </div>
+          </div>
+        </fieldset>
 
-        <div>
-          <input
-            type="radio"
-            name="activity"
-            value="10"
-            onChange={(e) => setActivity(Number(e.target.value))}
-          />
-          <label htmlFor="macros-activity1">
-            Sedentary (Little or no exercise)
-          </label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="activity"
-            value="12"
-            onChange={(e) => setActivity(Number(e.target.value))}
-          />
-          <label htmlFor="macros-activity2">
-            Lightly active (Light exercise/sports 3-5 days a week)
-          </label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="activity"
-            value="14"
-            onChange={(e) => setActivity(Number(e.target.value))}
-          />
-          <label htmlFor="macros-activity3">
-            Moderately active (Moderate exercise/sports 3-5 days a week)
-          </label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="activity"
-            value="16"
-            onChange={(e) => setActivity(Number(e.target.value))}
-          />
-          <label htmlFor="macros-activity4">
-            Active (Hard exercise/sports 6-7 days a week)
-          </label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            name="activity"
-            value="18"
-            onChange={(e) => setActivity(Number(e.target.value))}
-          />
-          <label htmlFor="macros-activity5">
-            Very active (Hard exercise/sports 6-7 days a week, plus physical
-            job)
-          </label>
-        </div>
-        <button type="button" onClick={handleSubmit}>
+        <fieldset>
+          <legend className="text-base font-medium text-gray-900 contents">
+            Activity Level
+          </legend>
+          <div className="mt-4 space-y-4">
+            <div className="flex items-center">
+              <input
+                id="maintenance"
+                name="activity-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                value="10"
+                onChange={(e) => setActivity(Number(e.target.value))}
+              />
+              <label
+                htmlFor="maintenance"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Sedentary (Little or no exercise)
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="gain"
+                name="activity-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                value="12"
+                onChange={(e) => setActivity(Number(e.target.value))}
+              />
+              <label
+                htmlFor="gain"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Lightly active (Light exercise/sports 3-5 days a week)
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="lose"
+                name="activity-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                value="14"
+                onChange={(e) => setActivity(Number(e.target.value))}
+              />
+              <label
+                htmlFor="lose"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Moderately active (Moderate exercise/sports 3-5 days a week)
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="lose"
+                name="activity-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                value="16"
+                onChange={(e) => setActivity(Number(e.target.value))}
+              />
+              <label
+                htmlFor="lose"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Active (Hard exercise/sports 6-7 days a week)
+              </label>
+            </div>
+            <div className="flex items-center">
+              <input
+                id="lose"
+                name="activity-options"
+                type="radio"
+                className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                value="18"
+                onChange={(e) => setActivity(Number(e.target.value))}
+              />
+              <label
+                htmlFor="lose"
+                className="block ml-3 text-sm font-medium text-gray-700"
+              >
+                Very active (Hard exercise/sports 6-7 days a week, plus physical
+                job)
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <button
+          type="button"
+          className="flex justify-center px-4 py-2 mx-auto mt-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          onClick={handleSubmit}
+        >
           Calculate
         </button>
       </form>
